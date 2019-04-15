@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.travel.mapper.UserMapper">
+
+  <select id="queryOneUserInfoByCondition" parameterType="map" resultType="map">
+  SELECT * from mem_user
+  <where>
+    <if test="account != null">
+      and account = #{account}
+    </if>
+  </where>
+  </select>
+
+  <select id="queryListUserInfoByCondition" parameterType="map" resultType="map">
+  SELECT * from mem_user
+  </select>
+
+  <select id="queryOneAdminInfoByCondition" parameterType="map" resultType="map">
+    SELECT * from sys_user
+    <where>
+      <if test="account != null">
+        and account = #{account}
+      </if>
+    </where>
+  </select>
+
+  <select id="queryTravelInfoByCondition" parameterType="map" resultType="map">
+    select * from travel t
+    WHERE 1= 1
+      <if test="travel_id != null">
+        and t.travel_id = #{travel_id}
+      </if>
+      <if test="hotInfo != null">
+        ORDER BY t.travel_Byno desc
+      </if>
+      <if test="newInfo != null">
+        ORDER BY t.travel_addDate desc
+      </if>
+  </select>
+
+</mapper>

@@ -129,4 +129,11 @@ public class HomeService implements HomeServiceInterface{
         userMapper.allBuyProduct(map);
         return result;
     }
+
+    @Override
+    public ResponseResult addMessage(Map<String, String> map) {
+        ResponseResult result = new ResponseResult(Const.CODE_INFO.CODE_0000);
+        userMapper.InsertMessage(map);
+        return result;
+    }
 }

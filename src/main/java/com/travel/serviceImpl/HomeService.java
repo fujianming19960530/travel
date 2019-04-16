@@ -8,6 +8,7 @@ import com.travel.util.CacheManagerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -87,5 +88,28 @@ public class HomeService implements HomeServiceInterface{
         ResponseResult result = new ResponseResult(Const.CODE_INFO.CODE_0000);
         result.setResult(userMapper.queryTravelInfoByCondition(map));
         return result;
+    }
+
+    @Override
+    public ResponseResult Registertion(Map<String, Object> map) {
+        ResponseResult result = new ResponseResult(Const.CODE_INFO.CODE_0000);
+        //设置初始权限和初始积分
+        map.put("role_level","1");
+        map.put("signin_date","2019年");
+        map.put("vip_level","1");
+        map.put("integral",0);
+        Map<String,String> request = new HashMap<>();
+        request.put("account",map.get("account").toString());
+        //检查用户账号是否已使用
+        Map<String,Object> userInfo = userMapper.queryOneUserInfoByCondition(request);
+        if(userInfo == null){
+            userMapper.InsertUserInfo(map);
+            result.setRes_code(Const.CODE_INFO.CODE_0000.getCode());
+            return result;
+        }
+        else {
+            result.setRes_code(Const.CODE_INFO.CODE_0004.getCode());
+            return result;
+        }
     }
 }

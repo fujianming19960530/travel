@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="ThemeBucket">
+    <link rel="shortcut icon" href="#" type="image/png">
+    <title>用户注册</title>
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/style-responsive.css" rel="stylesheet">
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+
+</head>
+
+<body class="login-body">
+
+<div class="container">
+
+    <div class="form-signin">
+        <div class="form-signin-heading text-center">
+            <h1 class="sign-title">欢迎加入我们！</h1>
+            <img src="images/login-logo.png" alt=""/>
+        </div>
+        <div class="login-wrap">
+            <p>仔细输入您的信息</p>
+            <input id="account" type="text" autofocus="" placeholder="登录账号" class="form-control">
+            <input id="password" type="password" placeholder="登录密码" class="form-control">
+            <input id="re_password" type="password" placeholder="确认密码" class="form-control">
+            <input id="user_name" type="text" autofocus="" placeholder="您的姓名" class="form-control">
+            <input id="phone" type="text" autofocus="" placeholder="您的手机" class="form-control">
+            <input id="address" type="text" autofocus="" placeholder="居住城市" class="form-control">
+            <div id="sex" class="radios">
+                <label for="radio-01" class="label_radio col-lg-6 col-sm-6">
+                    <input type="radio" checked="" value="1" id="radio-01" name="sample-radio"> 小哥哥
+                </label>
+                <label for="radio-02" class="label_radio col-lg-6 col-sm-6">
+                    <input type="radio" value="1" id="radio-02" name="sample-radio"> 小姐姐
+                </label>
+            </div>
+            <button class="btn btn-lg btn-login btn-block" id="ready">
+                完成注册
+            </button>
+
+            <div class="registration">
+                有账号？
+                <a id="goLogin" class="">
+                    去登陆吧！
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="../login/loginjs/registration.js"></script>
+<script src="../login/loginjs/invoker.js"></script>
+
+</body>
+</html>

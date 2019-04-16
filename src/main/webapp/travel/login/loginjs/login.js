@@ -24,7 +24,10 @@ var index = {
             $("#account").val("");
             $("#password").val("");
             $("#code").val("");
-        })
+        });
+        $("#goRegistration").bind("click",function () {
+            window.location.href="../login/registration.html";
+        });
     },
 
     //登录方法
@@ -46,9 +49,10 @@ var index = {
         param.password = password;
         param.code = code;
         Invoker.invokeRequest("loginController/login",param,function login(data){
+            debugger;
             console.log(data);
             if(data.res_code == "1000"){
-                window.location.href="index/index.html";
+                window.location.href="../index/index.html";
             }
             if(data.res_code == "2000"){
                 window.location.href="manage/index.html";

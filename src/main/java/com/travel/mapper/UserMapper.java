@@ -38,4 +38,11 @@ public interface UserMapper {
      */
     List<Map<String,Object>> queryTravelInfoByCondition(Map<String,String> map);
 
+    /**
+     * 插入用户信息
+     * @param map
+     * @return
+     */
+    Integer InsertUserInfo(Map<String,Object> map);
+
 }

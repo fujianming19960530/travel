@@ -47,4 +47,26 @@ public interface HomeServiceInterface {
      * @return
      */
     ResponseResult Registertion(Map<String,Object> map);
+
+    /**
+     * 添加留言信息
+     * @param map
+     * @return
+     */
+    ResponseResult addComment(Map<String,String> map);
+
+    /**
+     * 查询全部已买过的套餐
+     * @param map
+     * @return
+     */
+    ResponseResult allByProducts(Map<String,String> map);
+
+    /**
+     * 添加评价信息
+     * @param map
+     * @return
+     */
+    ResponseResult addMessage(Map<String,String> map);
+
 }

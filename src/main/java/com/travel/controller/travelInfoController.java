@@ -42,4 +42,12 @@ public class travelInfoController {
         result.setResult(homeService.travelInfo(request));
         return result;
     }
+
+    @RequestMapping("/hasBuyInfo")
+    @ResponseBody
+    public ResponseResult buyInfo(@RequestBody Map<String,String> request){
+        ResponseResult result = new ResponseResult(Const.CODE_INFO.CODE_0000);
+        result = homeService.allByProducts(request);
+        return result;
+    }
 }

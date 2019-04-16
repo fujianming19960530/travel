@@ -112,4 +112,21 @@ public class HomeService implements HomeServiceInterface{
             return result;
         }
     }
+
+    @Override
+    public ResponseResult addComment(Map<String, String> map) {
+        ResponseResult result = new ResponseResult(Const.CODE_INFO.CODE_0000);
+        CacheManagerImpl cacheManagerImpl = new CacheManagerImpl();
+        Object userInfo = cacheManagerImpl.getCacheDataByKey("userInfo");
+        map.put("comment_userId",((HashMap) userInfo).get("account").toString());
+        userMapper.InsertCommentInfo(map);
+        return result;
+    }
+
+    @Override
+    public ResponseResult allByProducts(Map<String, String> map) {
+        ResponseResult result = new ResponseResult(Const.CODE_INFO.CODE_0000);
+        userMapper.allBuyProduct(map);
+        return result;
+    }
 }

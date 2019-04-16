@@ -121,47 +121,128 @@
 </div>
 <!--全部产品-->
 <div id="product" style="margin-top: 30px;margin-bottom: 30px;">
-        <div class="container" style="margin-top: 30px;">
-            <div class="row" id="all_service">
-                <div class="tm-section-header">
-                    <div class="col-lg-3 col-md-3 col-sm-3">
-                        <hr>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6"><h2 class="tm-section-title">全部的旅游套餐</h2></div>
-                    <div class="col-lg-3 col-md-3 col-sm-3">
-                        <hr>
-                    </div>
+    <div class="container" style="margin-top: 30px;">
+        <div class="row" id="all_service">
+            <div class="tm-section-header">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <hr>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6"><h2 class="tm-section-title">全部的旅游套餐</h2></div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <hr>
                 </div>
             </div>
-            <div class="row" id="allproducts">
+        </div>
+        <div class="row" id="allproducts">
 
-            </div>
+        </div>
+        <div id="pageInfo">
             <nav aria-label="..." style="margin-left: 40%">
                 <ul class="pagination">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1">上一页</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item active">
-                        <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">下一页</a>
+                    <li class="page-item"><!--tabindex="-1"-->
+                        <a id="upPage" class="page-link" href="javascript:void(0)">上一页</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" href="#">跳页</a>
+                        <a id="first" class="page-link" href="javascript:void(0)">1</a></li>
+                    <li class="page-item">
+                        <a id="second" class="page-link" href="javascript:void(0)">2</a>
                     </li>
                     <li class="page-item">
-
+                        <a id="third" class="page-link" href="javascript:void(0)">3</a></li>
+                    <li class="page-item">
+                        <a id="next" class="page-link" href="javascript:void(0)">下一页</a>
                     </li>
-
+                    <li class="page-item">
+                        <a id="jump" class="page-link" href="javascript:void(0)">跳页</a>
+                    </li>
+                    <li class="page-item">
+                        <input id="jump_text" style="width: 40px;height: 33px" type="text">
+                    </li>
                 </ul>
             </nav>
         </div>
+    </div>
 </div>
 <!--售后服务-->
 <div id="service" style="margin-top: 30px;margin-bottom: 30px;">
+    <div class="container" style="margin-top: 30px;">
+        <div class="row" id="my_service">
+            <div class="tm-section-header">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <hr>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6"><h2 class="tm-section-title">我的旅游套餐</h2></div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <hr>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Testimonial -->
+            <div class="col-lg-12">
+                <div class="tm-what-we-do-right">
+                    <div class="tm-about-box-2 margin-bottom-30">
+                        <img src="img/about-2.jpg" alt="image" class="tm-about-box-2-img">
+                        <div class="tm-about-box-2-text">
+                            <h3 class="tm-about-box-2-title">Gravida Nibh Vel Velit Auctor Aliquet Etiam</h3>
+                            <div id="add_msg" class="input-group" style="display: none">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">说出我的评价</span>
+                                </div>
+                                <textarea style="width: 400px;height: 120px" class="form-control" aria-label="With textarea"></textarea>
+                            </div>
+                            <p id="main_msg" class="tm-about-box-2-description gray-text">最新评价</p>
+                            <p class="tm-about-box-2-footer">
+                                <button id="msg" type="button" class="btn btn-secondary">我要评价</button>
+                                <button id="sub" type="button" class="btn btn-secondary" style="display: none">提交</button>
+                                </p>
+                        </div>
+                    </div>
+                    <div class="tm-about-box-2">
+                        <img src="img/about-3.jpg" alt="image" class="tm-about-box-2-img">
+                        <div class="tm-about-box-2-text">
+                            <h3 class="tm-about-box-2-title">Sed Non Mauris Vitae Erat Con Ruat Nostra</h3>
+                            <p class="tm-about-box-2-description gray-text">Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non mauris vitae erat consequat auctor eu in elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris in erat justo. Nullam ac urna eu felis.</p>
+                            <p class="tm-about-box-2-footer">Sednon Mauris Vitae</p>
+                        </div>
+                    </div>
+                    <div class="tm-about-box-2">
+                        <img src="img/about-3.jpg" alt="image" class="tm-about-box-2-img">
+                        <div class="tm-about-box-2-text">
+                            <h3 class="tm-about-box-2-title">Sed Non Mauris Vitae Erat Con Ruat Nostra</h3>
+                            <p class="tm-about-box-2-description gray-text">Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non mauris vitae erat consequat auctor eu in elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris in erat justo. Nullam ac urna eu felis.</p>
+                            <p class="tm-about-box-2-footer">Sednon Mauris Vitae</p>
+                        </div>
+                    </div>
+                    <div class="tm-about-box-2">
+                        <img src="img/about-3.jpg" alt="image" class="tm-about-box-2-img">
+                        <div class="tm-about-box-2-text">
+                            <h3 class="tm-about-box-2-title">Sed Non Mauris Vitae Erat Con Ruat Nostra</h3>
+                            <p class="tm-about-box-2-description gray-text">Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non mauris vitae erat consequat auctor eu in elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris in erat justo. Nullam ac urna eu felis.</p>
+                            <p class="tm-about-box-2-footer">Sednon Mauris Vitae</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tm-testimonials-box">
+                    <h3 class="tm-testimonials-title">最新的评价信息</h3>
+                    <div class="tm-testimonials-content">
+                        <div class="tm-testimonial">
+                            <p>"Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum."</p>
+                            <strong class="text-uppercase">评价人：</strong>
+                        </div>
+                        <div class="tm-testimonial">
+                            <p>"Nisi elit consequat ipsum, nec sagittis sem nibh id elit duis sed odio sit amet nibh."</p>
+                            <strong class="text-uppercase">Lorens</strong>
+                        </div>
+                        <div class="tm-testimonial">
+                            <p>"Rulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio."<p>
+                            <strong class="text-uppercase">Robert</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 <!--关于我们-->
@@ -172,7 +253,7 @@
             <div class="flexslider effect2 effect2-contact tm-contact-box-1">
                 <ul class="slides">
                     <li>
-                        <img src="img/world-map.png" alt="image" class="contact-image" />
+                        <img src="img/world-map.png" alt="image" class="contact-image"/>
                         <div class="contact-text">
                             <h2 class="slider-title">我们的服务宗旨</h2>
                             <h3 class="slider-subtitle">顾客是上帝</h3>
@@ -189,25 +270,30 @@
         <div class="container">
             <div class="row">
                 <div class="tm-section-header section-margin-top">
-                    <div class="col-lg-4 col-md-3 col-sm-3"><hr></div>
+                    <div class="col-lg-4 col-md-3 col-sm-3">
+                        <hr>
+                    </div>
                     <div class="col-lg-4 col-md-6 col-sm-6"><h2 class="tm-section-title">联系我们</h2></div>
-                    <div class="col-lg-4 col-md-3 col-sm-3"><hr></div>
+                    <div class="col-lg-4 col-md-3 col-sm-3">
+                        <hr>
+                    </div>
                 </div>
             </div>
             <div class="row">
-                <form action="#" method="post" class="tm-contact-form" style="margin-left: 30%">
+                <form class="tm-contact-form" style="margin-left: 30%">
                     <div class="col-lg-6 col-md-6 tm-contact-form-input">
                         <div class="form-group">
-                            <input type="text" id="contact_name" class="form-control" placeholder="您的名字" />
+                            <input type="text" id="user_name" class="form-control" placeholder="您的名字"/>
                         </div>
                         <div class="form-group">
-                            <input type="email" id="contact_email" class="form-control" placeholder="您的联系方式" />
+                            <input type="text" id="phone" class="form-control" placeholder="您的联系方式"/>
                         </div>
                         <div class="form-group">
-                            <textarea id="contact_message" class="form-control" rows="6" placeholder="输入您想告诉我们的或是您想提的意见"></textarea>
+                            <textarea id="comment_detail" class="form-control" rows="6"
+                                      placeholder="输入您想告诉我们的或是您想提的意见"></textarea>
                         </div>
                         <div class="form-group">
-                            <button class="tm-submit-btn" type="submit" name="submit">现在提交</button>
+                            <button class="tm-submit-btn" id="commentSubmit" name="submit">现在提交</button>
                         </div>
                     </div>
                 </form>
@@ -229,6 +315,9 @@
                 </div>
             </div>
         </div>
+        <div class="row" id="productDetail">
+
+        </div>
         <div class="row" id="productInfo">
 
         </div>
@@ -238,7 +327,7 @@
 <footer class="tm-black-bg">
     <div class="container">
         <div class="row">
-            <p class="tm-copyright-text"></p>
+            <p class="tm-copyright-text">Copyright &copy; 2019.贵州省旅游信息网站.<a target="_blank" href="javascript:void(0)">首页</a></p>
         </div>
     </div>
 </footer>
@@ -250,13 +339,14 @@
 <script type="text/javascript" src="js/jquery.flexslider-min.js"></script>
 <script type="text/javascript" src="js/invoker.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/comment.js"></script>
 
 <script type="text/javascript" src="js/templatemo-script.js"></script>            <!-- Templatemo Script -->
 <script>
     $(function () {
 
         $('#hotelCarTabs a').click(function (e) {
-            e.preventDefault()
+            e.preventDefault();
             $(this).tab('show')
         })
 

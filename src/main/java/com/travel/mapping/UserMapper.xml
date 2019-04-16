@@ -45,4 +45,25 @@
     #{mobile_phone},#{signin_date},#{vip_level},#{integral},#{address})
   </select>
 
+    <select id="InsertCommentInfo" parameterType="map">
+        insert into comment(comment_detail,comment_userId,comment_date,phone)
+        VALUE (#{comment_detail},#{comment_userId},date_format(SYSDATE(),'%Y-%m-%d %T'),#{phone})
+    </select>
+
+  <select id="InsertMessage" parameterType="map">
+    insert into message(message_userId,message_travelId,message_detail,message_date)
+        VALUE (#{account},#{travelId},#{detail},date_format(SYSDATE(),'%Y-%m-%d %T'))
+  </select>
+
+  <select id="allBuyProduct" parameterType="map" resultType="map">
+    select * from finance f
+    where 1=1
+    <if test="account != null and account != ''">
+      and f.account = #{account}
+    </if>
+    <if test="travelId != null and travelId != ''">
+      and f.travel_id = #{travel_id}
+    </if>
+  </select>
+
 </mapper>

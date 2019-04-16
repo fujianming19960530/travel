@@ -45,4 +45,24 @@ public interface UserMapper {
      */
     Integer InsertUserInfo(Map<String,Object> map);
 
+    /**
+     * 插入用户留言信息
+     * @param map
+     * @return
+     */
+    Integer InsertCommentInfo(Map<String,String> map);
+
+    /**
+     * 插入评价信息
+     * @param map
+     * @return
+     */
+    Integer InsertMessage(Map<String,String> map);
+
+    /**
+     * 查询消费过的旅游信息
+     * @param map
+     * @return
+     */
+    List<Map<String,Object>> allBuyProduct(Map<String,String> map);
 }

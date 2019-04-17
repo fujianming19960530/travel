@@ -50,4 +50,12 @@ public class travelInfoController {
         result = homeService.allByProducts(request);
         return result;
     }
+
+    @RequestMapping("/addOrder")
+    @ResponseBody
+    public ResponseResult addOrder(@RequestBody Map<String,Object> request){
+        ResponseResult result = new ResponseResult(Const.CODE_INFO.CODE_0000);
+        homeService.addProd(request);
+        return result;
+    }
 }

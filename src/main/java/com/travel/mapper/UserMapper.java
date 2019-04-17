@@ -65,4 +65,18 @@ public interface UserMapper {
      * @return
      */
     List<Map<String,Object>> allBuyProduct(Map<String,String> map);
+
+    /**
+     * 查询全部的评价信息
+     * @param map
+     * @return
+     */
+    List<Map<String,String>> allMessages(Map<String,String> map);
+
+    /**
+     * 完成下单操作
+     * @param map
+     * @return
+     */
+    Integer insertOrder(Map<String,Object> map);
 }

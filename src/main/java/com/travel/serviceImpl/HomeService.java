@@ -126,14 +126,43 @@ public class HomeService implements HomeServiceInterface{
     @Override
     public ResponseResult allByProducts(Map<String, String> map) {
         ResponseResult result = new ResponseResult(Const.CODE_INFO.CODE_0000);
-        userMapper.allBuyProduct(map);
+        CacheManagerImpl cacheManagerImpl = new CacheManagerImpl();
+        Object userInfo = cacheManagerImpl.getCacheDataByKey("userInfo");
+        map.put("account",((HashMap) userInfo).get("account").toString());
+        result.setResult(userMapper.allBuyProduct(map));
         return result;
     }
 
     @Override
     public ResponseResult addMessage(Map<String, String> map) {
         ResponseResult result = new ResponseResult(Const.CODE_INFO.CODE_0000);
+        CacheManagerImpl cacheManagerImpl = new CacheManagerImpl();
+        Object userInfo = cacheManagerImpl.getCacheDataByKey("userInfo");
+        map.put("account",((HashMap) userInfo).get("account").toString());
         userMapper.InsertMessage(map);
         return result;
+    }
+
+    @Override
+    public ResponseResult allMessages(Map<String, String> map) {
+        ResponseResult result = new ResponseResult(Const.CODE_INFO.CODE_0000);
+        if(map.containsKey("account")){
+            CacheManagerImpl cacheManagerImpl = new CacheManagerImpl();
+            Object userInfo = cacheManagerImpl.getCacheDataByKey("userInfo");
+            map.put("account",((HashMap) userInfo).get("account").toString());
+            userMapper.InsertMessage(map);
+        }
+        result.setResult(userMapper.allMessages(map));
+        return result;
+    }
+
+    @Override
+    public Integer addProd(Map<String, Object> map) {
+        map.put("number",100);
+        CacheManagerImpl cacheManagerImpl = new CacheManagerImpl();
+        Object userInfo = cacheManagerImpl.getCacheDataByKey("userInfo");
+        map.put("account",((HashMap) userInfo).get("account").toString());
+        userMapper.insertOrder(map);
+        return null;
     }
 }

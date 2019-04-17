@@ -2,43 +2,43 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.travel.mapper.UserMapper">
 
-  <select id="queryOneUserInfoByCondition" parameterType="map" resultType="map">
+    <select id="queryOneUserInfoByCondition" parameterType="map" resultType="map">
+        SELECT * from mem_user
+        <where>
+            <if test="account != null">
+                and account = #{account}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryListUserInfoByCondition" parameterType="map" resultType="map">
   SELECT * from mem_user
-  <where>
-    <if test="account != null">
-      and account = #{account}
-    </if>
-  </where>
   </select>
 
-  <select id="queryListUserInfoByCondition" parameterType="map" resultType="map">
-  SELECT * from mem_user
-  </select>
+    <select id="queryOneAdminInfoByCondition" parameterType="map" resultType="map">
+        SELECT * from sys_user
+        <where>
+            <if test="account != null">
+                and account = #{account}
+            </if>
+        </where>
+    </select>
 
-  <select id="queryOneAdminInfoByCondition" parameterType="map" resultType="map">
-    SELECT * from sys_user
-    <where>
-      <if test="account != null">
-        and account = #{account}
-      </if>
-    </where>
-  </select>
+    <select id="queryTravelInfoByCondition" parameterType="map" resultType="map">
+        select * from travel t
+        WHERE 1= 1
+        <if test="travel_id != null">
+            and t.travel_id = #{travel_id}
+        </if>
+        <if test="hotInfo != null">
+            ORDER BY t.travel_Byno desc
+        </if>
+        <if test="newInfo != null">
+            ORDER BY t.travel_addDate desc
+        </if>
+    </select>
 
-  <select id="queryTravelInfoByCondition" parameterType="map" resultType="map">
-    select * from travel t
-    WHERE 1= 1
-      <if test="travel_id != null">
-        and t.travel_id = #{travel_id}
-      </if>
-      <if test="hotInfo != null">
-        ORDER BY t.travel_Byno desc
-      </if>
-      <if test="newInfo != null">
-        ORDER BY t.travel_addDate desc
-      </if>
-  </select>
-
-  <select id="InsertUserInfo" parameterType="map">
+    <select id="InsertUserInfo" parameterType="map">
     insert into mem_user(account,password,birthday,role_level,user_name,
     mobile_phone,signin_date,vip_level,integral,address)
     VALUE (#{account},#{password},#{birthday},#{role_level},#{user_name},
@@ -50,20 +50,40 @@
         VALUE (#{comment_detail},#{comment_userId},date_format(SYSDATE(),'%Y-%m-%d %T'),#{phone})
     </select>
 
-  <select id="InsertMessage" parameterType="map">
+    <select id="InsertMessage" parameterType="map">
     insert into message(message_userId,message_travelId,message_detail,message_date)
         VALUE (#{account},#{travelId},#{detail},date_format(SYSDATE(),'%Y-%m-%d %T'))
   </select>
 
-  <select id="allBuyProduct" parameterType="map" resultType="map">
-    select * from finance f
-    where 1=1
-    <if test="account != null and account != ''">
-      and f.account = #{account}
-    </if>
-    <if test="travelId != null and travelId != ''">
-      and f.travel_id = #{travel_id}
-    </if>
-  </select>
+    <select id="allBuyProduct" parameterType="map" resultType="map">
+        select * from finance f
+        left join travel t on t.travel_id = f.travel_id
+        where 1=1
+        <if test="account != null and account != ''">
+            and f.account = #{account}
+        </if>
+        <if test="travelId != null and travelId != ''">
+            and f.travel_id = #{travel_id}
+        </if>
+    </select>
+
+    <select id="allMessages" parameterType="map" resultType="map">
+      select mu.user_name,s.message_detail,t.travel_name from message s
+      left join mem_user mu on mu.account = s.message_userId
+      left join travel t on t.travel_id = s.message_travelId
+      where 1=1
+        <if test="account != null and account != ''">
+            and s.message_userId = #{account}
+        </if>
+        <if test="travelId != null and travelId != ''">
+            and s.travel_id = #{travel_id}
+        </if>
+        ORDER BY s.message_date desc
+    </select>
+
+    <select id="insertOrder" parameterType="map">
+      INSERT into finance (transaction_type,transaction_number,transaction_date,account,travel_id,times)
+      VALUE(#{type},#{number},date_format(SYSDATE(),'%Y-%m-%d %T'),#{account},#{travel_id},1)
+    </select>
 
 </mapper>

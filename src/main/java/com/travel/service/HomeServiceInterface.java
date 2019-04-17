@@ -69,4 +69,17 @@ public interface HomeServiceInterface {
      */
     ResponseResult addMessage(Map<String,String> map);
 
+    /**
+     * 查询全部的评价信息
+     * @return
+     */
+    ResponseResult allMessages(Map<String,String> map);
+
+    /**
+     * 添加订单消费记录
+     * @param map
+     * @return
+     */
+    Integer addProd(Map<String,Object> map);
+
 }

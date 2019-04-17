@@ -30,8 +30,15 @@ public class CommentController {
     @ResponseBody
     public ResponseResult addMessages(@RequestBody Map<String,String> request){
         ResponseResult result = new ResponseResult(Const.CODE_INFO.CODE_0000);
-        result = homeService.addMessage(request);
+        homeService.addMessage(request);
         return result;
     }
 
+    @RequestMapping("/allMessage")
+    @ResponseBody
+    public ResponseResult allMessages(@RequestBody Map<String,String> request){
+        ResponseResult result = new ResponseResult(Const.CODE_INFO.CODE_0000);
+        result = homeService.allMessages(request);
+        return result;
+    }
 }

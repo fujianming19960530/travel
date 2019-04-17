@@ -1,14 +1,23 @@
 var allProduct = [];
 var searchrows = 8;
 var nowPage = 1;
+var buttonId = "";
+var pord = "";
 function a_txt(data) {
+    pord = data;
     index.oneProductInfo(data);
+}
+function productInfo(data) {
+    buttonId = data;
 }
 var index = {
     init: function () {
         var me = this;
+        //首页信息
         me.showIndexInfo();
+        //导航栏点击事件
         me.tabShow();
+        //售后服务
         me.producthasBuy();
     },
     tabShow: function () {
@@ -226,7 +235,7 @@ var index = {
                 "<div class=\"tm-tours-box-1-link-left\" style=\"width: 60%\">" +
                 "旅游天数: 5 days\n" +
                 "</div>\n" +
-                "<a href=\"javascript:void(0)\" class=\"tm-tours-box-1-link-right\" style=\"width: 40%\">" +
+                "<a data-toggle=\"modal\" data-target=\"#order_mode\" href=\"javascript:void(0)\" class=\"tm-tours-box-1-link-right\" style=\"width: 40%\">" +
                 "$1,200&nbsp;下单\n" +
                 "</a>\n" +
                 "</div>\n" +
@@ -234,20 +243,74 @@ var index = {
                 "</div>";
             $("#productDetail").append(html);
         });
+
+        $("#order").bind("click",function () {
+            var params = {};
+            params.type = "01";
+            params.travel_id = pord;
+            Invoker.invokeRequest("travelInfoController/addOrder", params, null);
+            alert("下单成功！");
+            window.location.href="../index/index.html";
+        });
     },
     producthasBuy:function () {
-        $("#msg").bind("click",function () {
-            $("#msg").hide();
-            $("#sub").show();
-            $("#main_msg").hide();
-            $("#add_msg").show();
+        var params = {};
+        var me = this;
+        Invoker.invokeRequest("travelInfoController/hasBuyInfo", params, function login(data) {
+            var result = data.result;
+            for(var i = 0 ;i<result.length;i++){
+                var html = "<div class=\"tm-about-box-2 margin-bottom-30\">\n" +
+                    "<img src='"+result[i].travel_detail_picture+"' alt=\"image\" class=\"tm-about-box-2-img\">\n" +
+                    "<div class=\"tm-about-box-2-text\">\n" +
+                    "<h3 class=\"tm-about-box-2-title\">"+result[i].travel_name+"</h3>\n" +
+                    "<div id='msg"+result[i].travel_id+ "'>"+
+                    "<p class=\"tm-about-box-2-description gray-text\">"+result[i].travel_description+"</p>\n" +
+                    "<p class=\"tm-about-box-2-footer\">\n" +
+                    "<button onclick='productInfo("+result[i].travel_id+")' id='msg' type=\"button\" class=\"btn btn-secondary msg\">我要评价</button>\n" +
+                    "</p>\n" +
+                    "</div></div>\n" +
+                    "</div>";
+                $("#myProduct").append(html);
+
+            }
+            me.prodClick();
         });
-        $("#sub").bind("click",function () {
-            $("#main_msg").show();
-            $("#add_msg").hide();
-            $("#msg").hide();
-            $("#sub").hide();
-        })
+        Invoker.invokeRequest("commentController/allMessage", params, function login(data) {
+            var result = data.result;
+            for (var i = 0;i < 10;i++){
+                var html = "<div class=\"tm-testimonial\">\n" +
+                    "<p>"+result[i].travel_name+"&nbsp;;&nbsp;"+result[i].message_detail+"</p>\n" +
+                    "<strong class=\"text-uppercase\">评价人："+result[i].user_name+"</strong>" +
+                    "</div>";
+                $("#new_message").append(html);
+            }
+        });
+    },
+    prodClick:function () {
+        $(".msg").bind("click",function () {
+            var html = "<div id=\"add_msg\" class=\"input-group\"" +
+                "<div class=\"input-group-prepend\">\n" +
+                "<span class=\"input-group-text\">说出我的评价</span>\n" +
+                "</div>\n" +
+                "</div>" +
+                "<button id=\"sub\" type=\"button\" class=\"btn btn-secondary sub_\">提交</button>";
+            var button = "msg"+buttonId;
+            $( "#" + button +"").empty();
+            $( "#" + button +"").append(html);
+            $("#add_msg").append("<input type='text' id='nihao' style='width: 400px;height: 90px' class='form-control'>");
+            $(".sub_").bind("click",function () {
+                var button = "msg"+buttonId;
+                var msg = $("#nihao").val();
+                var params = {};
+                params.detail = msg;
+                params.travelId = buttonId;
+                Invoker.invokeRequest("commentController/addMessage", params, function login(data) {
+                });
+                $( "#" + button +"").empty();
+                $( "#" + button +"").append("评价成功！感谢支持");
+            })
+        });
+
     }
 };
 $(function () {

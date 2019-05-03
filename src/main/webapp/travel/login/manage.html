@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="ThemeBucket">
+    <link rel="shortcut icon" href="#" type="image/png">
+    <title>旅游官网后台</title>
+    <link href="css/table-responsive.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/style-responsive.css" rel="stylesheet">
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+</head>
+<body class="sticky-header">
+
+<section>
+    <div class="left-side sticky-left-side">
+        <div class="logo">
+            <a href="#"><img src="images/logo.png" alt=""></a>
+        </div>
+        <div class="left-side-inner">
+            <ul class="nav nav-pills nav-stacked custom-nav">
+                <li><a id="userInfo" href="#"><i class="fa fa-home"></i> <span>用户信息管理</span></a></li>
+                <li><a id="travlInfo" href="#"><i class="fa fa-bullhorn"></i> <span>旅游信息管理</span></a></li>
+                <li><a id="payInfo" href="#"><i class="fa fa-envelope"></i> <span>消费信息管理</span></a></li>
+                <li><a id="userMsgInfo" href="#"><i class="fa fa-tasks"></i> <span>用户评论管理</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="page-heading" id="head_travel">
+        </div>
+        <div class="wrapper">
+            <div class="row">
+                <div class="col-sm-12">
+                    <section class="panel">
+                        <header class="panel-heading" id="header_travel">
+
+                        </header>
+                        <div class="panel-body">
+                            <table class="table table-bordered table-striped table-condensed">
+                                <thead id="thead_travel">
+                                </thead>
+                                <tbody id="tbody_travel">
+                                </tbody>
+                            </table>
+                            <ul id="pageUl" class="pagination">
+                                <li><a id="Uppage" href="javascript:void(0)">&laquo;</a></li>
+                                <li><a id="Fist" href="javascript:void(0)">首页</a></li>
+                                <li><a id="One" href="javascript:void(0)">1</a></li>
+                                <!--<li><a id="Two" href="javascript:void(0)">2</a></li>
+                                <li><a id="Three" href="javascript:void(0)">3</a></li>-->
+                                <li><a id="Last" href="javascript:void(0)">尾页</a></li>
+                                <li><a id="Nextpage" href="javascript:void(0)">&raquo;</a></li>
+                                <li><a id="JumpPage" href="javascript:void(0)">跳页</a></li>
+                                <li><input id="jump_text" style="width: 40px;height: 33px" type="text"></li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <!--详情信息动态div-->
+        <div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title" id="myModalLabelss">
+                            <p>查看详情</p>
+                        </h4>
+                        <div class="wrapper">
+                            <div class="row">
+                                <div id="headerRightsss">
+                                    <div contenteditable="" id="stu_detail_up">
+                                        <div class="tab-content form-horizontal" id="home-pillss">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" id="user_dt">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--推荐活动信息动态div-->
+        <div class="modal fade" id="act_pu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title" id="head_up">
+                            <p>首页推荐活动</p>
+                        </h4>
+                        <div class="wrapper">
+                            <div class="row">
+                                <div id="headerRigh">
+                                    <div contenteditable="" id="push_detail">
+                                        <div class="tab-content form-horizontal" id="home-pill">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" id="up_userInfo">
+                        <button id="sub_act_push" type="button" class="btn btn-default" data-dismiss="modal">提交
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <p class="tm-copyright-text">Copyright &copy; 2019.贵州省旅游信息网站.</p>
+        </footer>
+    </div>
+</section>
+
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/jquery-ui-1.9.2.custom.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/jquery.nicescroll.js"></script>
+<script src="js/scripts.js"></script>
+<script src="loginjs/manage.js"></script>
+<script src="loginjs/invoker.js"></script>
+</body>
+<script>
+    $(window).ready(function () {
+
+    });
+</script>
+</html>

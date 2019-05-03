@@ -4,6 +4,7 @@ package com.travel.service;
 import com.travel.core.ResponseResult;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -81,5 +82,89 @@ public interface HomeServiceInterface {
      * @return
      */
     Integer addProd(Map<String,Object> map);
+
+    /**
+     * 查询全部的用户信息
+     * @param map
+     * @return
+     */
+    List<Map<String,Object>> queryUserInfo(Map<String,String> map);
+
+    /**
+     * 查询全部的消费信息
+     * @param map
+     * @return
+     */
+    List<Map<String,Object>> queryPayInfo(Map<String,String> map);
+
+    /**
+     * 查询全部的评论信息
+     * @param map
+     * @return
+     */
+    List<Map<String,String>> allMessage(Map<String,String> map);
+
+    /**
+     * 更新用户信息
+     * @param map
+     * @return
+     */
+    Integer updateUserInfo(Map<String,String> map);
+
+    /**
+     * 删除用户信息
+     * @param map
+     * @return
+     */
+    Integer delUserInfo(Map<String,String> map);
+
+    /**
+     * 更新用户评论信息
+     * @param map
+     * @return
+     */
+    Integer updateMessage(Map<String,String> map);
+
+    /**
+     * 删除评论信息
+     * @param map
+     * @return
+     */
+    Integer delMessage(Map<String,String> map);
+
+    /**
+     * 更新旅游套餐信息
+     * @param map
+     * @return
+     */
+    Integer updateTravelInfo(Map<String,Object> map);
+
+    /**
+     * 插入旅游信息
+     * @param map
+     * @return
+     */
+    Integer insertTravelInfo(Map<String,Object> map);
+
+    /**
+     * 删除旅游信息
+     * @param map
+     * @return
+     */
+    Integer delTravelInfo(Map<String,String> map);
+
+    /**
+     * 查询全部的推荐活动表
+     * @param map
+     * @return
+     */
+    List<Map<String,String>> queryActpush(Map<String,String> map);
+
+    /**
+     * 更新推荐活动信息
+     * @param map
+     * @return
+     */
+    Integer updateActpush(Map<String,String> map);
 
 }

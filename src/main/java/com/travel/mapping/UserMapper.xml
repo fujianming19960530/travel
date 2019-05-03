@@ -4,16 +4,19 @@
 
     <select id="queryOneUserInfoByCondition" parameterType="map" resultType="map">
         SELECT * from mem_user
-        <where>
-            <if test="account != null">
-                and account = #{account}
-            </if>
-        </where>
+        where 1=1
+        <if test="account != null">
+            and account = #{account}
+        </if>
     </select>
 
     <select id="queryListUserInfoByCondition" parameterType="map" resultType="map">
-  SELECT * from mem_user
-  </select>
+      SELECT * from mem_user
+        where 1=1
+        <if test="account != null">
+            and account = #{account}
+        </if>
+    </select>
 
     <select id="queryOneAdminInfoByCondition" parameterType="map" resultType="map">
         SELECT * from sys_user
@@ -42,7 +45,7 @@
     insert into mem_user(account,password,birthday,role_level,user_name,
     mobile_phone,signin_date,vip_level,integral,address)
     VALUE (#{account},#{password},#{birthday},#{role_level},#{user_name},
-    #{mobile_phone},#{signin_date},#{vip_level},#{integral},#{address})
+    #{mobile_phone},date_format(SYSDATE(),'%Y-%m-%d %T'),#{vip_level},#{integral},#{address})
   </select>
 
     <select id="InsertCommentInfo" parameterType="map">
@@ -58,6 +61,7 @@
     <select id="allBuyProduct" parameterType="map" resultType="map">
         select * from finance f
         left join travel t on t.travel_id = f.travel_id
+        left join mem_user mu on mu.account = f.account
         where 1=1
         <if test="account != null and account != ''">
             and f.account = #{account}
@@ -65,18 +69,24 @@
         <if test="travelId != null and travelId != ''">
             and f.travel_id = #{travel_id}
         </if>
+        <if test="transaction_id != null">
+            and f.transaction_id = #{transaction_id}
+        </if>
     </select>
 
     <select id="allMessages" parameterType="map" resultType="map">
-      select mu.user_name,s.message_detail,t.travel_name from message s
-      left join mem_user mu on mu.account = s.message_userId
-      left join travel t on t.travel_id = s.message_travelId
-      where 1=1
+        select * from message s
+        left join mem_user mu on mu.account = s.message_userId
+        left join travel t on t.travel_id = s.message_travelId
+        where 1=1
         <if test="account != null and account != ''">
             and s.message_userId = #{account}
         </if>
         <if test="travelId != null and travelId != ''">
             and s.travel_id = #{travel_id}
+        </if>
+        <if test="message_id != null and message_id != ''">
+            and s.message_id = #{message_id}
         </if>
         ORDER BY s.message_date desc
     </select>
@@ -84,6 +94,65 @@
     <select id="insertOrder" parameterType="map">
       INSERT into finance (transaction_type,transaction_number,transaction_date,account,travel_id,times)
       VALUE(#{type},#{number},date_format(SYSDATE(),'%Y-%m-%d %T'),#{account},#{travel_id},1)
+    </select>
+
+    <select id="updateUserInfo" parameterType="map" resultType="int">
+        update mem_user
+        set user_name = #{username},password = #{password},
+        mobile_phone = #{phone},address = #{address}
+        where account = #{account}
+    </select>
+
+    <select id="delUserInfo" parameterType="map" resultType="int">
+        delete from mem_user
+        where account = #{account}
+    </select>
+
+    <select id="updateMessage" parameterType="map" resultType="int">
+        update message set reply_admin = #{admin_name},
+        reply_date= date_format(SYSDATE(),'%Y-%m-%d %T'),reply_detail=#{reply}
+        where message_id = #{message_id}
+    </select>
+
+    <select id="delMessage" parameterType="map" resultType="int">
+        delete from message
+        where message_id = #{message_id}
+    </select>
+
+    <select id="updateTravelInfo" parameterType="map" resultType="int">
+        update travel SET travel_name = #{travel_name},
+        travel_description = #{travel_description},
+        travel_price = #{travel_price},
+        travel_detail_picture = #{travle_picture},
+        travel_time = #{travel_time},
+        pic_one = #{pic_one},
+        pic_two = #{pic_two},
+        pic_three = #{pic_three}
+        where travel_id = #{travel_id}
+    </select>
+
+    <select id="insertTravelInfo" parameterType="map" resultType="int">
+        insert into travel (travel_type,travel_price,
+        travel_name,travel_description,travel_Byno,travel_addDate,travel_detail_picture,
+        travel_time,pic_one,pic_two,pic_three)
+        value(#{travel_type},#{travel_price},#{travel_name},#{travel_description},
+        #{travel_Byno},date_format(SYSDATE(),'%Y-%m-%d %T'),#{travel_detail_picture},#{travel_time},#{pic_one},#{pic_two},#{pic_three})
+    </select>
+
+    <select id="delTravelInfo" parameterType="map" resultType="int">
+        DELETE from travel
+        where travel_id = #{travel_id}
+    </select>
+
+    <select id="queryActpush" parameterType="map" resultType="map">
+        select * from pushact p
+        left join travel t on t.travel_id = p.push_act_actId
+    </select>
+
+    <select id="updateActpush" parameterType="map" resultType="int">
+        update pushact
+        set push_act_actId = #{push_act_actId}
+        where pushAct_id = #{pushAct_id}
     </select>
 
 </mapper>

@@ -8,8 +8,9 @@ import com.travel.util.CacheManagerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.lang.reflect.Array;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -94,7 +95,7 @@ public class HomeService implements HomeServiceInterface{
     public ResponseResult Registertion(Map<String, Object> map) {
         ResponseResult result = new ResponseResult(Const.CODE_INFO.CODE_0000);
         //设置初始权限和初始积分
-        map.put("role_level","1");
+        map.put("role_level","00");
         map.put("signin_date","2019年");
         map.put("vip_level","1");
         map.put("integral",0);
@@ -164,5 +165,79 @@ public class HomeService implements HomeServiceInterface{
         map.put("account",((HashMap) userInfo).get("account").toString());
         userMapper.insertOrder(map);
         return null;
+    }
+
+    @Override
+    public List<Map<String, Object>> queryUserInfo(Map<String, String> map) {
+        return userMapper.queryListUserInfoByCondition(map);
+    }
+
+    @Override
+    public List<Map<String, Object>> queryPayInfo(Map<String, String> map) {
+        return userMapper.allBuyProduct(map);
+    }
+
+    @Override
+    public List<Map<String, String>> allMessage(Map<String, String> map) {
+        return userMapper.allMessages(map);
+    }
+
+    @Override
+    public Integer updateUserInfo(Map<String, String> map) {
+        userMapper.updateUserInfo(map);
+        return 0;
+    }
+
+    @Override
+    public Integer delUserInfo(Map<String, String> map) {
+        userMapper.delUserInfo(map);
+        return 0;
+    }
+
+    @Override
+    public Integer updateMessage(Map<String, String> map) {
+        CacheManagerImpl cacheManagerImpl = new CacheManagerImpl();
+        Object userInfo = cacheManagerImpl.getCacheDataByKey("userInfo");
+        map.put("admin_name",((HashMap) userInfo).get("sys_name").toString());
+        userMapper.updateMessage(map);
+        return 0;
+    }
+
+    @Override
+    public Integer delMessage(Map<String, String> map) {
+        userMapper.delMessage(map);
+        return 0;
+    }
+
+    @Override
+    public Integer updateTravelInfo(Map<String, Object> map) {
+        userMapper.updateTravelInfo(map);
+        return 0;
+    }
+
+    @Override
+    public Integer insertTravelInfo(Map<String, Object> map) {
+        map.put("travel_type","01");
+        map.put("travel_Byno",0);
+        //detail_picture.toString();
+        userMapper.insertTravelInfo(map);
+        return 0;
+    }
+
+    @Override
+    public Integer delTravelInfo(Map<String, String> map) {
+        userMapper.delTravelInfo(map);
+        return 0;
+    }
+
+    @Override
+    public List<Map<String, String>> queryActpush(Map<String, String> map) {
+        return userMapper.queryActpush(map);
+    }
+
+    @Override
+    public Integer updateActpush(Map<String, String> map) {
+        userMapper.updateActpush(map);
+        return 0;
     }
 }

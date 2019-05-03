@@ -28,7 +28,6 @@ var registration = {
             params.address = address;
             params.birthday = "2019-1-1";
             Invoker.invokeRequest("loginController/userReistertion",params,function login(data){
-                debugger;
                 if(data.result.res_code == "0004"){
                     alert("注册失败，账号已被占用");
                     return false;

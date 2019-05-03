@@ -16,6 +16,27 @@ function getResult(url,objects,callback) {
         success : callback
     });
 }
+
+function uploadFile(url,objects,callback) {
+    var formData = new FormData();
+    formData.append("myfile", $("#"+objects).files[0]);
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: formData,
+        /**
+         *必须false才会自动加上正确的Content-Type
+         */
+        contentType: false,
+        /**
+         * 必须false才会避开jQuery对 formdata 的默认处理
+         * XMLHttpRequest会对 formdata 进行正确的处理
+         */
+        processData: false,
+        success: callback
+    });
+}
+
 (function($){
     window.Invoker = {
         invokeRequest:function (url,objects,callback){
@@ -23,6 +44,13 @@ function getResult(url,objects,callback) {
             var root = "http://localhost:8888/travel/";
             //防止$不能使用就这样调用ajax
             getResult(root+url,objects,callback);
+        },
+        //objects传表单上传文件id
+        fileUpload:function (url,objects,callback) {
+            //本地测试地址就用这个，线上的自己设置
+            var root = "http://localhost:8888/travel/";
+            //防止$不能使用就这样调用ajax
+            uploadFile(root+url,objects,callback);
         }
     };
 })();
@@ -31,6 +59,5 @@ function invoker(url,objects,callback) {
     var me = this;
     me.invokeRequest(url,objects,callback);
 }
-
 
 

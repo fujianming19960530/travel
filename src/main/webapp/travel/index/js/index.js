@@ -67,8 +67,8 @@ var index = {
                 var html = "<div class=\"col-lg-4 col-md-4 col-sm-6\">" +
                     "<input type='hidden'>" +
                     "<div class=\"tm-home-box-1 tm-home-box-1-2 tm-home-box-1-center\">" +
-                    "<img src='" +
-                    result[i].travle_picture +
+                    "<img style='height: 400px;width: 100%' src='" +
+                    result[i].travel_detail_picture +
                     "' " +
                     "alt=\"image\" class=\"img-responsive\">" +
                     "<a onclick='a_txt("+result[i].travel_id+")' id='1' href='javascript:void(0)'>" +
@@ -89,7 +89,7 @@ var index = {
             for (var i = 0; i < 4; i++) {
                 var html = "<div class=\"col-lg-3 col-md-3 col-sm-6 col-xs-6 col-xxs-12\">" +
                     "<div class=\"tm-home-box-2\">" +
-                    "<img src='" + result[i].travel_detail_picture + "' alt=\"image\" class=\"img-responsive\">" +
+                    "<img style='width: 100%;height: 250px' src='" + result[i].travel_detail_picture + "' alt=\"image\" class=\"img-responsive\">" +
                     "<h3>" + result[i].travel_name + "</h3>" +
                     "<p class=\"tm-date\">" + result[i].travel_addDate + "</p>" +
                     "<div class=\"tm-home-box-2-container\">" +
@@ -142,7 +142,7 @@ var index = {
                     for (var i = (nowPage - 1) * rows; i < size; i++) {
                         var html = "<div style='margin-top: 20px' class=\"col-lg-3 col-md-3 col-sm-6 col-xs-6 col-xxs-12\">" +
                             "<div class=\"tm-home-box-2\">" +
-                            "<img src='" + result[i].travel_detail_picture + "' alt=\"image\" class=\"img-responsive\">" +
+                            "<img style='width: 100%;height: 250px' src='" + result[i].travel_detail_picture + "' alt=\"image\" class=\"img-responsive\">" +
                             "<h3>" + result[i].travel_name + "</h3>" +
                             "<p class=\"tm-date\">" + result[i].travel_addDate + "</p>" +
                             "<div class=\"tm-home-box-2-container\">" +
@@ -221,7 +221,7 @@ var index = {
             $("#oneProduct").show();
             var html = "<div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\" style=\"margin-left: 25%\">" +
                 "<div class=\"tm-tours-box-1\">" +
-                "<img src='"+result.travel_detail_picture+"' alt=\"image\" class=\"img-responsive\" style=\"width: 100%;height: 300px\">" +
+                "<img style='width: 100%;height: 250px' src='"+result.travel_detail_picture+"' alt=\"image\" class=\"img-responsive\" style=\"width: 100%;height: 300px\">" +
                 "<div class=\"tm-tours-box-1-info\">" +
                 "<div class=\"tm-tours-box-1-info-left\">" +
                 "<p class=\"text-uppercase margin-bottom-20\">"+result.travel_name+"</p>" +
@@ -260,7 +260,7 @@ var index = {
             var result = data.result;
             for(var i = 0 ;i<result.length;i++){
                 var html = "<div class=\"tm-about-box-2 margin-bottom-30\">\n" +
-                    "<img src='"+result[i].travel_detail_picture+"' alt=\"image\" class=\"tm-about-box-2-img\">\n" +
+                    "<img style='width: 100%;height: 250px' src='"+result[i].travel_detail_picture+"' alt=\"image\" class=\"tm-about-box-2-img\">\n" +
                     "<div class=\"tm-about-box-2-text\">\n" +
                     "<h3 class=\"tm-about-box-2-title\">"+result[i].travel_name+"</h3>\n" +
                     "<div id='msg"+result[i].travel_id+ "'>"+
@@ -277,9 +277,13 @@ var index = {
         });
         Invoker.invokeRequest("commentController/allMessage", params, function login(data) {
             var result = data.result;
-            for (var i = 0;i < 10;i++){
+            var size = result.length;
+            if(size > 10){
+                size = 10;
+            }
+            for (var i = 0;i < size;i++){
                 var html = "<div class=\"tm-testimonial\">\n" +
-                    "<p>"+result[i].travel_name+"&nbsp;;&nbsp;"+result[i].message_detail+"</p>\n" +
+                    "<p>"+result[i].travel_name+"&nbsp;&nbsp;"+result[i].message_detail+"</p>\n" +
                     "<strong class=\"text-uppercase\">评价人："+result[i].user_name+"</strong>" +
                     "</div>";
                 $("#new_message").append(html);

@@ -3,13 +3,17 @@ var searchrows = 8;
 var nowPage = 1;
 var buttonId = "";
 var pord = "";
+var price = "";
+
 function a_txt(data) {
     pord = data;
     index.oneProductInfo(data);
 }
+
 function productInfo(data) {
     buttonId = data;
 }
+
 var index = {
     init: function () {
         var me = this;
@@ -54,16 +58,18 @@ var index = {
             $("#about").show();
             $("#oneProduct").hide();
         });
+        $("#log_out").bind("click",function () {
+            window.location.href= "../login/login.html";
+        });
     },
     showIndexInfo: function () {
         var params = {};
         var me = this;
         params.code = "index";
-
-        //3条最热的旅游套餐（购买数量最多的）
-        Invoker.invokeRequest("travelInfoController/hotTravelInfo", params, function login(data) {
-            var result = data.result.result;
-            for (var i = 0; i < 3; i++) {
+        //3条最热的旅游套餐
+        Invoker.invokeRequest("adminController/queryActpush", params, function login(data) {
+            var result = data.result;
+            for (var i = 0; i < result.length; i++) {
                 var html = "<div class=\"col-lg-4 col-md-4 col-sm-6\">" +
                     "<input type='hidden'>" +
                     "<div class=\"tm-home-box-1 tm-home-box-1-2 tm-home-box-1-center\">" +
@@ -71,7 +77,7 @@ var index = {
                     result[i].travel_detail_picture +
                     "' " +
                     "alt=\"image\" class=\"img-responsive\">" +
-                    "<a onclick='a_txt("+result[i].travel_id+")' id='1' href='javascript:void(0)'>" +
+                    "<a onclick='a_txt(" + result[i].travel_id + ")' id='1' href='javascript:void(0)'>" +
                     "<div class=\"tm-green-gradient-bg tm-city-price-container\">" +
                     "<span>" + result[i].travel_name + "</span>\n" +
                     "<span>￥" + result[i].travel_price + "</span>\n" +
@@ -93,9 +99,8 @@ var index = {
                     "<h3>" + result[i].travel_name + "</h3>" +
                     "<p class=\"tm-date\">" + result[i].travel_addDate + "</p>" +
                     "<div class=\"tm-home-box-2-container\">" +
-                    "<a href=\"javascript:void(0)\" class=\"tm-home-box-2-link\"><i class=\"fa fa-heart tm-home-box-2-icon border-right\"></i></a>" +
-                    "<a onclick='a_txt("+result[i].travel_id+")' href=\"javascript:void(0)\" class=\"tm-home-box-2-link\"><span class=\"tm-home-box-2-description\">了解一下</span></a>" +
-                    "<a href=\"javascript:void(0)\" class=\"tm-home-box-2-link\"><i class=\"fa fa-edit tm-home-box-2-icon border-left\"></i></a>" +
+                    "<a style='margin-left: 50px' onclick='a_txt(" + result[i].travel_id + ")' href=\"javascript:void(0)\" class=\"tm-home-box-2-link\"><span class=\"tm-home-box-2-description\">了解一下</span>" +
+                    "<i class=\"fa fa-hand-o-right tm-home-box-2-icon border-left\"></i></a>" +
                     "</div>" +
                     "</div>" +
                     "</div>";
@@ -146,9 +151,8 @@ var index = {
                             "<h3>" + result[i].travel_name + "</h3>" +
                             "<p class=\"tm-date\">" + result[i].travel_addDate + "</p>" +
                             "<div class=\"tm-home-box-2-container\">" +
-                            "<a href=\"#\" class=\"tm-home-box-2-link\"><i class=\"fa fa-heart tm-home-box-2-icon border-right\"></i></a>" +
-                            "<a onclick='a_txt("+result[i].travel_id+")' href=\"#\" class=\"tm-home-box-2-link\"><span class=\"tm-home-box-2-description\">了解一下</span></a>" +
-                            "<a href=\"#\" class=\"tm-home-box-2-link\"><i class=\"fa fa-edit tm-home-box-2-icon border-left\"></i></a>" +
+                            "<a style='margin-left: 50px' onclick='a_txt(" + result[i].travel_id + ")' href=\"#\" class=\"tm-home-box-2-link\"><span class=\"tm-home-box-2-description\">了解一下</span>" +
+                            "<i class=\"fa fa-hand-o-right tm-home-box-2-icon border-left\"></i></a>" +
                             "</div>" +
                             "</div>" +
                             "</div>";
@@ -165,78 +169,110 @@ var index = {
         }
     },
     //更新分页插件信息
-    productModifyPage:function (nowPages) {
+    productModifyPage: function (nowPages) {
         nowPage = nowPages;
-        $("#first").show();
-        $("#second").show();
+        $("#first").html(nowPages);
+        /*$("#second").show();
         $("#third").show();
-        if(Math.ceil(allProduct.length/searchrows) < 3){
-            if(Math.ceil(allProduct.length/searchrows) == 1){
+        if (Math.ceil(allProduct.length / searchrows) < 3) {
+            if (Math.ceil(allProduct.length / searchrows) == 1) {
                 $("#second").hide();
                 $("#third").hide();
             }
-            if(Math.ceil(allProduct.length/searchrows) == 2){
+            if (Math.ceil(allProduct.length / searchrows) == 2) {
                 $("#third").hide();
             }
-        }else {
+        } else {
             $("#first").html(nowPages);
-            $("#second").html(nowPages-1);
-            $("#third").html(nowPages+1);
-        }
+            $("#second").html(nowPages - 1);
+            $("#third").html(nowPages + 1);
+        }*/
     },
-    jumpPageClick:function () {
-        var me= this;
-        $("#upPage").bind("click",function () {
+    jumpPageClick: function () {
+        var me = this;
+        $("#upPage").bind("click", function () {
             var code = nowPage;
-            if(code>1){
-                me.productModifyPage(code-1);
-                me.productPageJump(code-1,searchrows,allProduct)
+            if (code > 1) {
+                me.productModifyPage(code - 1);
+                me.productPageJump(code - 1, searchrows, allProduct)
             }
         });
-        $("#next").bind("click",function () {
+        $("#next").bind("click", function () {
             var code = nowPage;
-            if(code < Math.ceil(allProduct.length/searchrows) && code > 0){
-                me.productModifyPage(code+1);
-                me.productPageJump(code+1,searchrows,allProduct)
+            if (code < Math.ceil(allProduct.length / searchrows) && code > 0) {
+                me.productModifyPage(code + 1);
+                me.productPageJump(code + 1, searchrows, allProduct)
             }
         });
-        $("#jump").bind("click",function () {
+        $("#jump").bind("click", function () {
             var code = parseInt($("#jump_text").val());
-            if(code< Math.ceil(allProduct.length/searchrows)+1){
+            if (code < Math.ceil(allProduct.length / searchrows) + 1) {
                 me.productModifyPage(code);
-                me.productPageJump(code,searchrows,allProduct);
+                me.productPageJump(code, searchrows, allProduct);
             }
         });
     },
-    oneProductInfo:function (data) {
+    oneProductInfo: function (data) {
         $("#productDetail").empty();
         var params = {};
         params.travel_id = data;
         Invoker.invokeRequest("travelInfoController/TravelInfo", params, function login(data) {
             var result = data.result.result[0];
+            price = result.travel_price;
             $("#index").hide();
             $("#product").hide();
             $("#service").hide();
             $("#about").hide();
             $("#oneProduct").show();
+            //            "<img style='width: 100%;height: 250px' src='"+result.travel_detail_picture+"' alt=\"image\" class=\"img-responsive\" style=\"width: 100%;height: 300px\">" +
+
             var html = "<div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\" style=\"margin-left: 25%\">" +
                 "<div class=\"tm-tours-box-1\">" +
-                "<img style='width: 100%;height: 250px' src='"+result.travel_detail_picture+"' alt=\"image\" class=\"img-responsive\" style=\"width: 100%;height: 300px\">" +
+                "<div id=\"myCarousel\" class=\"carousel slide\">\n" +
+                "\t<!-- 轮播（Carousel）指标 -->\n" +
+                "\t<ol class=\"carousel-indicators\">\n" +
+                "\t\t<li data-target=\"#myCarousel\" data-slide-to=\"0\" class=\"active\"></li>\n" +
+                "\t\t<li data-target=\"#myCarousel\" data-slide-to=\"1\"></li>\n" +
+                "\t\t<li data-target=\"#myCarousel\" data-slide-to=\"2\"></li>\n" +
+                "\t</ol>   \n" +
+                "\t<!-- 轮播（Carousel）项目 -->\n" +
+                "\t<div class=\"carousel-inner\">\n" +
+                "\t\t<div class=\"item active\">\n" +
+                "\t\t\t<img style='width: 100%;height: 400px' src='" + result.pic_one + "' alt=\"First slide\">\n" +
+                "\t\t</div>\n" +
+                "\t\t<div class=\"item\">\n" +
+                "<img style='width: 100%;height: 400px' src='" + result.pic_two + "' alt=\"Second slide\">" +
+                "\t\t</div>\n" +
+                "\t\t<div class=\"item\">\n" +
+                "\t\t\t<img style='width: 100%;height: 350px' src='" + result.pic_three + "' alt=\"Third slide\">\n" +
+                "\t\t</div>\n" +
+                "\t</div>\n" +
+                "\t<!-- 轮播（Carousel）导航 -->\n" +
+                "\t<a class=\"left carousel-control\" href=\"#myCarousel\" role=\"button\" data-slide=\"prev\">\n" +
+                "\t\t<span class=\"glyphicon glyphicon-chevron-left\" aria-hidden=\"true\"></span>\n" +
+                "\t\t<span class=\"sr-only\">Previous</span>\n" +
+                "\t</a>\n" +
+                "\t<a class=\"right carousel-control\" href=\"#myCarousel\" role=\"button\" data-slide=\"next\">\n" +
+                "\t\t<span class=\"glyphicon glyphicon-chevron-right\" aria-hidden=\"true\"></span>\n" +
+                "\t\t<span class=\"sr-only\">Next</span>\n" +
+                "\t</a>\n" +
+                "</div>" +
+
                 "<div class=\"tm-tours-box-1-info\">" +
                 "<div class=\"tm-tours-box-1-info-left\">" +
-                "<p class=\"text-uppercase margin-bottom-20\">"+result.travel_name+"</p>" +
-                "<p class=\"gray-text\">"+result.travel_addDate+"</p>" +
+                "<p class=\"text-uppercase margin-bottom-20\">" + result.travel_name + "</p>" +
+                "<p class=\"gray-text\">" + result.travel_addDate + "</p>" +
                 "</div>\n" +
                 "<div class=\"tm-tours-box-1-info-right\">" +
-                "<p class=\"gray-text tours-1-description\">"+result.travel_description+"</p>" +
+                "<p class=\"gray-text tours-1-description\">" + result.travel_description + "</p>" +
                 "</div>\n" +
                 "</div>\n" +
                 "<div class=\"tm-tours-box-1-link\">" +
                 "<div class=\"tm-tours-box-1-link-left\" style=\"width: 60%\">" +
-                "旅游天数: 5 days\n" +
+                "旅游天数: " + result.travel_time + " 天\n" +
                 "</div>\n" +
                 "<a data-toggle=\"modal\" data-target=\"#order_mode\" href=\"javascript:void(0)\" class=\"tm-tours-box-1-link-right\" style=\"width: 40%\">" +
-                "$1,200&nbsp;下单\n" +
+                "￥" + result.travel_price + "&nbsp;下单\n" +
                 "</a>\n" +
                 "</div>\n" +
                 "</div>\n" +
@@ -244,74 +280,74 @@ var index = {
             $("#productDetail").append(html);
         });
 
-        $("#order").bind("click",function () {
+        $("#order").bind("click", function () {
             var params = {};
             params.type = "01";
             params.travel_id = pord;
+            params.price = price;
             Invoker.invokeRequest("travelInfoController/addOrder", params, null);
             alert("下单成功！");
-            window.location.href="../index/index.html";
+            window.location.href = "../index/index.html";
         });
     },
-    producthasBuy:function () {
+    producthasBuy: function () {
         var params = {};
         var me = this;
         Invoker.invokeRequest("travelInfoController/hasBuyInfo", params, function login(data) {
             var result = data.result;
-            for(var i = 0 ;i<result.length;i++){
+            for (var i = 0; i < result.length; i++) {
                 var html = "<div class=\"tm-about-box-2 margin-bottom-30\">\n" +
-                    "<img style='width: 100%;height: 250px' src='"+result[i].travel_detail_picture+"' alt=\"image\" class=\"tm-about-box-2-img\">\n" +
+                    "<img style='width: 100px%;height: 180px' src='" + result[i].travel_detail_picture + "' alt=\"image\" class=\"tm-about-box-2-img\">\n" +
                     "<div class=\"tm-about-box-2-text\">\n" +
-                    "<h3 class=\"tm-about-box-2-title\">"+result[i].travel_name+"</h3>\n" +
-                    "<div id='msg"+result[i].travel_id+ "'>"+
-                    "<p class=\"tm-about-box-2-description gray-text\">"+result[i].travel_description+"</p>\n" +
+                    "<h3 class=\"tm-about-box-2-title\">" + result[i].travel_name + "</h3>\n" +
+                    "<div id='msg" + result[i].travel_id + "'>" +
+                    "<p class=\"tm-about-box-2-description gray-text\">" + result[i].travel_description + "</p>\n" +
                     "<p class=\"tm-about-box-2-footer\">\n" +
-                    "<button onclick='productInfo("+result[i].travel_id+")' id='msg' type=\"button\" class=\"btn btn-secondary msg\">我要评价</button>\n" +
+                    "<button onclick='productInfo(" + result[i].travel_id + ")' id='msg' type=\"button\" class=\"btn btn-secondary msg\">我要评价</button>\n" +
                     "</p>\n" +
                     "</div></div>\n" +
                     "</div>";
                 $("#myProduct").append(html);
-
             }
             me.prodClick();
         });
         Invoker.invokeRequest("commentController/allMessage", params, function login(data) {
             var result = data.result;
             var size = result.length;
-            if(size > 10){
+            if (size > 10) {
                 size = 10;
             }
-            for (var i = 0;i < size;i++){
+            for (var i = 0; i < size; i++) {
                 var html = "<div class=\"tm-testimonial\">\n" +
-                    "<p>"+result[i].travel_name+"&nbsp;&nbsp;"+result[i].message_detail+"</p>\n" +
-                    "<strong class=\"text-uppercase\">评价人："+result[i].user_name+"</strong>" +
+                    "<p>" + result[i].travel_name + "&nbsp;&nbsp;" + result[i].message_detail + "</p>\n" +
+                    "<strong class=\"text-uppercase\">评价人：" + result[i].user_name + "</strong>" +
                     "</div>";
                 $("#new_message").append(html);
             }
         });
     },
-    prodClick:function () {
-        $(".msg").bind("click",function () {
+    prodClick: function () {
+        $(".msg").bind("click", function () {
             var html = "<div id=\"add_msg\" class=\"input-group\"" +
                 "<div class=\"input-group-prepend\">\n" +
                 "<span class=\"input-group-text\">说出我的评价</span>\n" +
                 "</div>\n" +
                 "</div>" +
                 "<button id=\"sub\" type=\"button\" class=\"btn btn-secondary sub_\">提交</button>";
-            var button = "msg"+buttonId;
-            $( "#" + button +"").empty();
-            $( "#" + button +"").append(html);
+            var button = "msg" + buttonId;
+            $("#" + button + "").empty();
+            $("#" + button + "").append(html);
             $("#add_msg").append("<input type='text' id='nihao' style='width: 400px;height: 90px' class='form-control'>");
-            $(".sub_").bind("click",function () {
-                var button = "msg"+buttonId;
+            $(".sub_").bind("click", function () {
+                var button = "msg" + buttonId;
                 var msg = $("#nihao").val();
                 var params = {};
                 params.detail = msg;
                 params.travelId = buttonId;
                 Invoker.invokeRequest("commentController/addMessage", params, function login(data) {
                 });
-                $( "#" + button +"").empty();
-                $( "#" + button +"").append("评价成功！感谢支持");
+                $("#" + button + "").empty();
+                $("#" + button + "").append("评价成功！感谢支持");
             })
         });
 

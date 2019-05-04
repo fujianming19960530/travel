@@ -744,7 +744,8 @@ function updateInfoShow(id) {
                 if (filename3 == "img/") {
                     filename3 = result.pic_three;
                 }
-                param.travel_picture = filename1;
+                param.travle_picture = filename1;
+                param.travel_detail_picture = filename1;
                 param.pic_one = filename1;
                 param.pic_two = filename2;
                 param.pic_three = filename3;

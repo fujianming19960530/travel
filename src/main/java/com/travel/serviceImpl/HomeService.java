@@ -159,10 +159,12 @@ public class HomeService implements HomeServiceInterface{
 
     @Override
     public Integer addProd(Map<String, Object> map) {
-        map.put("number",100);
+        //map.put("number",100);
         CacheManagerImpl cacheManagerImpl = new CacheManagerImpl();
         Object userInfo = cacheManagerImpl.getCacheDataByKey("userInfo");
         map.put("account",((HashMap) userInfo).get("account").toString());
+        double price = Double.valueOf(map.get("price").toString());
+        map.put("number",price);
         userMapper.insertOrder(map);
         return null;
     }
